@@ -1,4 +1,4 @@
-package com.example.Assingnment.bean;
+package com.gl.GlobalExchange.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class CompanyShare {
 	@Id
 	private Long companyId;
-	private String companyName;
+	private String  companyName;
 	private Double sharePrice;
 	public CompanyShare() {
 		super();
@@ -39,5 +39,6 @@ public class CompanyShare {
 	}
 	
 	
+
 
 }
