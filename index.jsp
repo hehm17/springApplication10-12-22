@@ -1,43 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" isELIgnored="false"%>
-     <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+            <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Company Share List</title>
 </head>
 <body>
 <div align="center">
-<a href="companyShare-List">CompanyShare List</a>
-<h1 style="color:red">
-<u><i>All Company Details</i></u>
+<h1>
+<hr size="11" color="green"/>
+Company Share List
 </h1>
+<h3 style="color:pink">
+<a href="entry">Enlist a new company</a>
+</h3>
+<hr size="5" color="cyan"/>
 <h2>
-<br/>
- <table border="2">
- <tr>
-    <th>Company Id</th>
-    <th>Company Name</th>
-    <th>Share Price</th>
-    <th>Action</th>
+<table border="2">
+  <tr>
+    <th>COMPANY ID</th>
+    <th>COMPANY NAME</th>
+    <th>SHARE PRICE</th>
+    <th>Actions</th>
+    
     </tr>
-    <c:forEach  items="${companyShareList}" var="companyShare">
-     <tr>
-      <td>${companyshare.companyId}</td>
-      <td>${companyshare.companyName}</td>
-      <td>${companyshare.companySharePrice}</td>
-       <td><h3>
-        <a href="display/${company.companyId}">Display</a>
-       	&nbsp;&nbsp;
-       	<a href="edit-company/${company.companyId}">Edit</a> 
-      	&nbsp;&nbsp;
-      	<a href="delete-company/${company.companyId}">Delete</a>
-      </h3></td>
+    <c:forEach  items="${Company}" var="company">
+      <tr>
+      <td>${company.companyId}</td>
+      <td>${company.companyName}</td>
+      <td>${company.sharePrice}</td>
+      <td><h3>
+       &nbsp;&nbsp;<a href="edit/${company.companyId}">Edit Share Price</a> 
+       &nbsp;&nbsp;<a href="delete/${company.companyId}">Delete Company</a>
+       </h3></td>
       </tr>
      </c:forEach>
   </table>
   </h2>
-  </div>
+</div>
 </body>
 </html>
