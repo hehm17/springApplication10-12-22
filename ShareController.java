@@ -1,69 +1,73 @@
-package com.example.Assingnment.controller;
+package com.gl.GlobalExchange.controller;
 
 import java.util.List;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.Assingnment.bean.CompanyShare;
-import com.example.Assingnment.service.CompanyShareService;
+import com.gl.GlobalExchange.bean.CompanyShare;
+import com.gl.GlobalExchange.service.CompanyShareService;
 
-
-
-public class ShareController {
+@RestController
+public class ShareContoller {
+	
 	@Autowired
-	private  CompanyShareService service;
+	private CompanyShareService service;
 	
 	@GetMapping("/index")
-	public ModelAndView showIndexPage() {
+	public ModelAndView findIndexPage()
+	{
 		ModelAndView mv=new ModelAndView("index");
-		List <CompanyShare> companyShareList=service.findAll();
-		mv.addObject("companyShareList",companyShareList);
+		List list=service.display();
+		mv.addObject("Company",list);
+		return mv;	
+	}
+	@GetMapping("/entry")
+	public ModelAndView entryPage()
+	{
+		CompanyShare company=new CompanyShare();
+		ModelAndView mv=new ModelAndView("entryShare");
+		mv.addObject("shareRecord",company);
 		return mv;
 	}
-	@GetMapping("/companyShare")
-	public ModelAndView showCompanyShareEntryPage() {
-		CompanyShare companyShare=new CompanyShare();
-		ModelAndView mv=new ModelAndView("CompanyShareEntryPage");
-		mv.addObject("courseShareRecord",companyShare);
-		return mv;
-
-}
-	@PostMapping("/companyShare")
-	public ModelAndView saveNewCompanyShare(@ModelAttribute("companyShareRecord") CompanyShare companyShare) {
-		long id=service.generateCompanyId();
-		companyShare.setCompanyId(id);
-		service.save(companyShare);
-		return new ModelAndView("redirect:/index");
+	@PostMapping("/company-entry")
+	public ModelAndView saveNewCompany(@ModelAttribute("shareRecord") CompanyShare company)
+	{
+	long id=service.generateId();
+	company.setCompanyId(id);
+	service.save(company);
+	return new ModelAndView("redirect:/index");
 	}
-	@GetMapping("/display-companyShare/{id}")
-	public ModelAndView showACompanyShare(@PathVariable long id) {
-		CompanyShare companyShare=service.findById(id);
-		ModelAndView mv=new ModelAndView("CompanyShareReportPage");
-		mv.addObject("companyShare",companyShare);
-		return mv;
-	}
-	@GetMapping("/delete-company/{id}")
-	public ModelAndView deleteACourses(@PathVariable long id) {
+	@GetMapping("/delete/{id}")
+	public ModelAndView delete(@PathVariable long id)
+	{
+		ModelAndView mv=new ModelAndView("redirect:/index");
 		service.delete(id);
-		return new ModelAndView("redirect:/index");
+		return mv;
+	}
+
+	@GetMapping("/edit/{id}")
+	public ModelAndView showCompanyEdit(@PathVariable long id)
+	{
+		CompanyShare company=service.findById(id);
+		ModelAndView mv=new ModelAndView("editShare");
+		mv.addObject("shareRecord",company);
+		return mv;
 	}
 	
-	@GetMapping("/edit-company/{id}")
-	public ModelAndView showCourseEditPage(@PathVariable long id) {
-		CompanyShare companyShare=service.findById(id);
-		ModelAndView mv=new ModelAndView("CompanyShareEditPage");
-		mv.addObject("companyRecord",companyShare);
-		return mv;
+	@PostMapping("/edit/edit1")
+	public ModelAndView editCourse(@ModelAttribute("shareRecord") CompanyShare company)
+	{
+	service.save(company);
+	return new ModelAndView("redirect:/index");
 	}
-	@PostMapping("/edit-company/company-edit")
-	public ModelAndView editCourse(@ModelAttribute("companyRecord") CompanyShare companyShare) {
-		service.save(companyShare);
-		return new ModelAndView("redirect:/index");
-	}
-}
 
+
+}
