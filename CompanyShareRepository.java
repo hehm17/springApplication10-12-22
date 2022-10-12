@@ -1,13 +1,16 @@
-package com.example.Assingnment.repository;
+package com.gl.GlobalExchange.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import com.example.Assingnment.bean.CompanyShare;
+import com.gl.GlobalExchange.bean.CompanyShare;
 
+@Repository
+public interface CompanyShareRepository  extends JpaRepository<CompanyShare,Long>{
 
-
-public interface CompanyShareRepository extends JpaRepository<CompanyShare, Long> {
-    @Query("select max(companyId) from CompanyShare")
-    public Long findMaxCompanyId();
+	@Query("select max(companyId) from CompanyShare")
+	public Long findMax();
+	
 }
