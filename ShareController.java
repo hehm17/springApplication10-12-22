@@ -33,7 +33,7 @@ public class ShareContoller {
 	public ModelAndView entryPage()
 	{
 		CompanyShare company=new CompanyShare();
-		ModelAndView mv=new ModelAndView("entryShare");
+		ModelAndView mv=new ModelAndView("CompanyShareEntryPage");
 		mv.addObject("shareRecord",company);
 		return mv;
 	}
@@ -57,7 +57,7 @@ public class ShareContoller {
 	public ModelAndView showCompanyEdit(@PathVariable long id)
 	{
 		CompanyShare company=service.findById(id);
-		ModelAndView mv=new ModelAndView("editShare");
+		ModelAndView mv=new ModelAndView("CompanyShareEditPage");
 		mv.addObject("shareRecord",company);
 		return mv;
 	}
